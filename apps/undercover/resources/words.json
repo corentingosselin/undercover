@@ -1,0 +1,209 @@
+[
+  {
+    "category": "Sexe",
+    "difficulties": [
+      {
+        "difficulty": "facile",
+        "words": [
+          { "pairs": ["fellation", "cunnilingus", "sexe oral", "sodomie"] },
+          { "pairs": ["branlette", "spasme", "orgasme"] },
+          { "pairs": ["sperme", "pertes vaginales"] },
+          { "pairs": ["cul", "seins", "nichons", "pennis", "minou"] },
+          { "pairs": ["gangbang", "plan à 3", "partouze"] },
+          { "pairs": ["érection", "viagra", "masturbation"] },
+          { "pairs": ["domination", "soumission", "sadomasochiste"] }
+        ]
+      },
+      {
+        "difficulty": "moyen",
+        "words": [
+          { "pairs": ["pénétration", "sodomie", "sexe oral"] },
+          { "pairs": ["préliminaires", "caresses", "jeux sexuels"] }
+        ]
+      },
+      {
+        "difficulty": "hard",
+        "words": [
+          { "pairs": ["érection", "orgasme"] },
+          { "pairs": ["safeword", "consentement", "limites"] }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Corps & fluides",
+    "difficulties": [
+      {
+        "difficulty": "facile",
+        "words": [
+          { "pairs": ["contraception", "enceinte"] },
+          { "pairs": ["caca", "vomi", "urine"] },
+          { "pairs": ["sang", "plaie", "cicatrice"] }
+        ]
+      },
+      {
+        "difficulty": "moyen",
+        "words": [
+          { "pairs": ["contraception", "enceinte", "bébé"] },
+          { "pairs": ["pus", "infection", "abcès"] }
+        ]
+      },
+      {
+        "difficulty": "hard",
+        "words": [{ "pairs": ["diahrée", "ebola", "tourista"] }]
+      }
+    ]
+  },
+  {
+    "category": "Violence & Armes",
+    "difficulties": [
+      {
+        "difficulty": "facile",
+        "words": [
+          { "pairs": ["coup de poing", "coup de pied", "baston", "émeute"] },
+          {
+            "pairs": [
+              "sniper",
+              "kalachnikov",
+              "carabine",
+              "coup de poing américain"
+            ]
+          },
+          { "pairs": ["grenade", "bombe", "mine"] },
+          { "pairs": ["guillotine", "pendaison", "torture", "décapitation"] }
+        ]
+      },
+      {
+        "difficulty": "moyen",
+        "words": [
+          { "pairs": ["prison", "police", "menotte"] },
+          { "pairs": ["otage", "kidnapping", "rançon"] },
+          { "pairs": ["guerre", "manifestation"] },
+          { "pairs": ["assasinner", "vengeance", "meurtre"] }
+        ]
+      },
+      {
+        "difficulty": "hard",
+        "words": [{ "pairs": ["mort", "corbeau", "faucheuse"] }]
+      }
+    ]
+  },
+  {
+    "category": "Normal",
+    "difficulties": [
+      {
+        "difficulty": "facile",
+        "words": [
+          { "pairs": ["chien", "chat"] },
+          { "pairs": ["voiture", "camion"] },
+          { "pairs": ["stylo", "crayon"] },
+          { "pairs": ["pain", "baguette"] },
+          { "pairs": ["pomme", "poire"] },
+          { "pairs": ["mer", "océan"] },
+          { "pairs": ["vélo", "trottinette"] },
+          { "pairs": ["télévision", "écran"] },
+          { "pairs": ["pull", "veste"] },
+          { "pairs": ["table", "chaise"] },
+          { "pairs": ["chaussette", "chaussure"] },
+          { "pairs": ["lait", "fromage"] },
+          { "pairs": ["four", "micro-ondes", "micro-ondes"] },
+          { "pairs": ["ballon", "raquette"] },
+          { "pairs": ["poêle", "casserole"] },
+          { "pairs": ["assiette", "verre", "couvert"] },
+          { "pairs": ["frigo", "congélateur"] },
+          { "pairs": ["tente", "sac de couchage"] },
+          { "pairs": ["guitare", "piano"] },
+          { "pairs": ["maison", "appartement", "immeuble"] },
+          { "pairs": ["cinéma", "film", "popcorn"] },
+
+          { "pairs": ["lycée", "université"] },
+          { "pairs": ["masque", "capuche"] },
+          { "pairs": ["nicotine", "tabac", "cigare"] },
+          { "pairs": ["bus", "train"] },
+          { "pairs": ["avion", "fusée"] },
+          { "pairs": ["espion", "ninja"] },
+          { "pairs": ["cornichon", "concombre"] },
+          { "pairs": ["perruque", "coupe de cheveux"] },
+          { "pairs": ["email", "téléphone"] },
+          { "pairs": ["raisin", "cerise"] },
+          { "pairs": ["tacos", "kebab"] },
+          { "pairs": ["jogging", "marathon"] },
+          { "pairs": ["guitare", "violon"] },
+          { "pairs": ["tigre", "chat"] },
+          { "pairs": ["herbe", "salade"] },
+          { "pairs": ["voleur", "méchant"] },
+          { "pairs": ["inondation", "tempête"] },
+          { "pairs": ["rat", "souris"] },
+          { "pairs": ["iceberg", "glaçon"] },
+          { "pairs": ["vampire", "loup-garou"] },
+          { "pairs": ["géographie", "histoire"] },
+          { "pairs": ["terre", "univers", "planète"] },
+          { "pairs": ["perroquet", "aigle", "canard"] },
+          { "pairs": ["prose", "poésie", "écriture"] },
+          { "pairs": ["netflix", "youtube", "instagram"] },
+          { "pairs": ["bibliothèque", "livre"] },
+          { "pairs": ["village", "nation"] },
+          { "pairs": ["requin", "thon", "saumon"] },
+          { "pairs": ["noël", "père noël"] },
+          { "pairs": ["virus", "cancer"] }
+        ]
+      },
+      {
+        "difficulty": "moyen",
+        "words": [
+          { "pairs": ["cigarette", "cigare", "fumée"] },
+          { "pairs": ["maire", "politicien"] },
+          { "pairs": ["avion", "oiseau"] },
+          { "pairs": ["médecin", "hôpital"] },
+          { "pairs": ["poisson", "aquarium"] },
+          { "pairs": ["fourchette", "couteau"] },
+          { "pairs": ["livre", "bibliothèque"] },
+          { "pairs": ["banque", "argent"] },
+          { "pairs": ["train", "gare"] },
+          { "pairs": ["clé", "serrure"] },
+
+          { "pairs": ["onlyfans", "twitch"] },
+          { "pairs": ["malédiction", "interdiction"] },
+          { "pairs": ["lézard", "cafard"] },
+          { "pairs": ["clin d’œil", "flirt"] },
+          { "pairs": ["frustré", "énervé"] },
+          { "pairs": ["danseur", "pom-pom girl"] },
+          { "pairs": ["baignoire", "toilettes"] },
+          { "pairs": ["polaroid", "caméra"] },
+          { "pairs": ["lingerie", "bikini"] },
+          { "pairs": ["PDG", "président"] },
+          { "pairs": ["maladroit", "timide"] },
+          { "pairs": ["message", "signe"] },
+          { "pairs": ["gouvernement", "administration", "police"] },
+          { "pairs": ["maladie", "obésité", "covid"] },
+          { "pairs": ["calculatrice", "machine", "ordinateur"] },
+          { "pairs": ["mathématiques", "économie", "physique"] },
+          { "pairs": ["sécurité", "gardien", "refuge"] },
+          { "pairs": ["précision", "élégance", "simplicité"] },
+          { "pairs": ["univers", "existence", "vie"] },
+          { "pairs": ["moderne", "jeune"] },
+          { "pairs": ["buffet", "barbecue"] },
+          { "pairs": ["temps", "instant", "minute"] }
+        ]
+      },
+      {
+        "difficulty": "hard",
+        "words": [
+          { "pairs": ["lunette", "jumelles", "téléscope"] },
+          { "pairs": ["nuit", "rideau"] },
+          { "pairs": ["ordinateur", "chaise"] },
+          { "pairs": ["souris", "fromage"] },
+          { "pairs": ["voiture", "clé"] },
+          { "pairs": ["pluie", "parapluie"] },
+          { "pairs": ["lampe", "livre"] },
+          { "pairs": ["montre", "rendez-vous"] },
+          { "pairs": ["pinata", "fête"] },
+          { "pairs": ["feu", "camping"] },
+
+          { "pairs": ["bruit", "dubstep"] },
+          { "pairs": ["dynamite", "piège"] }
+        ]
+      }
+    ]
+  }
+]

@@ -8,6 +8,7 @@ import {
   FC,
 } from 'react';
 import { GameContext, shuffleArray } from './GameProvider';
+import { useNavigate } from 'react-router-dom';
 
 type ModalPlayer = {
   name: string;
@@ -17,71 +18,114 @@ type ModalPlayer = {
 type Player = {
   id: number;
   name: string;
-  role: string;
+  role: 'civil' | 'undercover';
+  word: string;
 };
 
-type PlayerCardProps = {
-  player: Player;
-  order: number;
-  isKilled: boolean;
-  isVoting: boolean;
-  isCurrentTurn: boolean;
-  onEliminate: (id: number) => void;
-};
-
-const PlayerCard: FC<PlayerCardProps> = ({
+const PlayerCard = ({
   player,
   order,
   isKilled,
   isVoting,
   isCurrentTurn,
   onEliminate,
+  isSetupNextGame,
+  handleNextWordDisplay,
+  currentWordDisplayIndex,
+  totalPlayers,
+}: {
+  player: Player;
+  order: number;
+  isKilled: boolean;
+  isVoting: boolean;
+  isCurrentTurn: boolean;
+  onEliminate: (id: number) => void;
+  isSetupNextGame?: boolean;
+  handleNextWordDisplay?: () => void;
+  currentWordDisplayIndex: number;
+  totalPlayers: number;
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const displayName = player.name || `Joueur ${player.id + 1}`;
   const displayRole =
     player.role.charAt(0).toUpperCase() + player.role.slice(1);
 
+  const SetupGameStatus = () => {
+    if (!isSetupNextGame || currentWordDisplayIndex === undefined) {
+      return null;
+    }
+
+    // if order after index
+    if (currentWordDisplayIndex < order - 1) {
+      return <p className="text-xs text-gray-500 mt-2">En attente</p>;
+    }
+
+    if (currentWordDisplayIndex > order - 1) {
+      return <p className="text-xs text-gray-500 mt-2">Mot déjà vu</p>;
+    }
+
+    return (
+      <p
+        className="text-xs text-black mt-2 border border-black px-2 py-1 rounded cursor-pointer"
+        onClick={() => {
+          setIsModalOpen(true);
+        }}
+      >
+        Voir mon mot
+      </p>
+    );
+  };
+
+  const isLastPlayer =  isSetupNextGame && order === totalPlayers;
+
   return (
-    <div
-      onClick={() => onEliminate(player.id)}
-      className={`
+    <>
+      <div
+        onClick={() => onEliminate(player.id)}
+        className={`
         relative p-4 border rounded-lg cursor-pointer transition
         ${isVoting ? 'border-black' : 'border-gray-300'}
       `}
-    >
-      {/* Order badge */}
-      {!isKilled && (
-        <div
-          className={`
-          absolute top-2 right-2 rounded-full flex items-center justify-center text-[10px] font-semibold
-          ${isCurrentTurn ? 'bg-red-500 text-white' : 'bg-black text-white'}
-        `}
-          style={{ width: '1.5rem', height: '1.5rem' }}
-        >
-          {order}
-        </div>
-      )}
-
-      {/* Player name and role */}
-
-      <div className="flex flex-col items-start">
-        {/* only this wrapper fades */}
-        <div className={`transition ${isKilled ? 'opacity-50' : ''}`}>
-          <p className={`font-semibold ${isKilled ? 'line-through' : ''}`}>
-            {displayName}
-          </p>
-
-          {isVoting && !isKilled && (
-            <p className="text-xs text-black mt-2 border border-black px-2 py-1 rounded">
-              Éliminer ce joueur
-            </p>
-          )}
-        </div>
-
-        {/* role badge stays fully opaque, right under the name */}
-        {isKilled && (
-          <span
+      >
+        {/* Order badge */}
+        {!isKilled && (
+          <div
             className={`
+              absolute top-2 right-2 rounded-full flex items-center justify-center text-[10px] font-semibold
+              ${
+                (isCurrentTurn && !isSetupNextGame) ||
+                (isSetupNextGame && currentWordDisplayIndex === order - 1)
+                  ? 'bg-red-500 text-white'
+                  : 'bg-black text-white'
+              }
+            `}
+            style={{ width: '1.5rem', height: '1.5rem' }}
+          >
+            {order}
+          </div>
+        )}
+
+        {/* Player name and role */}
+        <div className="flex flex-col items-start">
+          {/* only this wrapper fades */}
+          <div className={`transition ${isKilled ? 'opacity-50' : ''}`}>
+            <p className={`font-semibold ${isKilled ? 'line-through' : ''}`}>
+              {displayName}
+            </p>
+
+            {isVoting && !isKilled && (
+              <p className="text-xs text-black mt-2 border border-black px-2 py-1 rounded">
+                Éliminer ce joueur
+              </p>
+            )}
+
+            <SetupGameStatus />
+          </div>
+
+          {/* role badge stays fully opaque, right under the name */}
+          {isKilled && (
+            <span
+              className={`
               mt-2 px-2 py-1 rounded text-xs
               ${
                 player.role === 'undercover'
@@ -89,22 +133,33 @@ const PlayerCard: FC<PlayerCardProps> = ({
                   : 'bg-amber-100 text-amber-600'
               }
             `}
-          >
-            {displayRole}
-          </span>
-        )}
+            >
+              {displayRole}
+            </span>
+          )}
+        </div>
       </div>
-    </div>
-  );
-};
 
-type RoleRevealModalProps = {
-  player: ModalPlayer;
-  onClose: () => void;
-  isUndercoverWin: boolean;
-  isCivilWin: boolean;
-  underCoverWord?: string;
-  civilWord?: string;
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
+            <p className="text-2xl font-bold mb-6">{player.word}</p>
+            <button
+              onClick={() => {
+                setIsModalOpen(false);
+                if (handleNextWordDisplay) {
+                  handleNextWordDisplay();
+                }
+              }}
+              className="bg-black text-white px-4 py-2 rounded"
+            >
+              {isLastPlayer ? 'Commencer la partie' : 'Joueur suivant'}
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 const WordBadge: FC<{ word: string; isUndercover: boolean }> = ({
@@ -123,13 +178,24 @@ const WordBadge: FC<{ word: string; isUndercover: boolean }> = ({
   </span>
 );
 
-const RoleRevealModal: FC<RoleRevealModalProps> = ({
+const RoleRevealModal = ({
   player,
   isUndercoverWin,
   isCivilWin,
   underCoverWord,
   civilWord,
   onClose,
+  replayGame,
+  restartGame,
+}: {
+  player: ModalPlayer;
+  isUndercoverWin: boolean;
+  isCivilWin: boolean;
+  underCoverWord?: string;
+  civilWord?: string;
+  onClose: () => void;
+  replayGame: () => void;
+  restartGame: () => void;
 }) => {
   const isUndercover = player.role === 'undercover';
 
@@ -140,7 +206,7 @@ const RoleRevealModal: FC<RoleRevealModalProps> = ({
   // Victory section content
   const hasVictory = isCivilWin || isUndercoverWin;
   const victoryMessage = isCivilWin
-    ? 'Bravo ! Les bebous remportent la victoire !'
+    ? 'Les bebous remportent la victoire !'
     : 'Les bebous dissimulés remportent la victoire !';
   const actionLabel = hasVictory ? 'Rejouer' : 'Fermer';
 
@@ -153,6 +219,13 @@ const RoleRevealModal: FC<RoleRevealModalProps> = ({
       <WordBadge key="undercover" word={underCoverWord} isUndercover={true} />
     ),
   ].filter(Boolean);
+
+  const handleClick = () => {
+    if (hasVictory) {
+      replayGame();
+    }
+    onClose();
+  };
 
   return (
     <div
@@ -190,12 +263,23 @@ const RoleRevealModal: FC<RoleRevealModalProps> = ({
           </>
         )}
 
-        <button
-          className="mt-2 px-4 py-2 bg-black text-white rounded hover:opacity-90"
-          onClick={onClose}
-        >
-          {actionLabel}
-        </button>
+        <div className="flex gap-4 mt-2">
+          {hasVictory && (
+            <button
+              className="px-4 py-2 bg-black text-gray-200 rounded hover:opacity-90"
+              onClick={restartGame}
+            >
+              Quitter
+            </button>
+          )}
+
+          <button
+            className="px-4 py-2 bg-amber-400 text-black rounded hover:opacity-90"
+            onClick={handleClick}
+          >
+            {actionLabel}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -204,8 +288,17 @@ const RoleRevealModal: FC<RoleRevealModalProps> = ({
 const Game: FC = () => {
   const context = useContext(GameContext);
   if (!context) throw new Error('GameContext missing');
-  const { players, wordOptions } = context;
+  const {
+    players,
+    wordOptions,
+    isSetupNextGame,
+    replayGame,
+    reset,
+    setIsSetupNextGame,
+    selectedCategory
+  } = context;
   const [civilWord, underCoverWord] = wordOptions;
+  const navigate = useNavigate();
 
   const [eliminated, setEliminated] = useState<number[]>([]);
   const [playerOrder, setPlayerOrder] = useState<number[]>([]);
@@ -214,6 +307,19 @@ const Game: FC = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [modalPlayer, setModalPlayer] = useState<ModalPlayer | null>(null);
+
+  const [currentWordDisplayIndex, setCurrentWordDisplayIndex] = useState(0);
+
+  const handleNextWordDisplay = useCallback(() => {
+    setCurrentWordDisplayIndex((prev) => prev + 1);
+  }, []);
+
+  useEffect(() => {
+    if (currentWordDisplayIndex >= players.length) {
+      setCurrentWordDisplayIndex(0);
+      setIsSetupNextGame(false);
+    }
+  }, [currentWordDisplayIndex, players.length]);
 
   // initialize/shuffle once when players change
   useEffect(() => {
@@ -289,13 +395,24 @@ const Game: FC = () => {
     [isVoting, playerMap]
   );
 
+  const restartGame = useCallback(() => {
+    setShowModal(false);
+    reset();
+    navigate('/');
+  }, [reset]);
+
   return (
     <div className="p-6">
-      <p className="mb-4 text-lg font-semibold">Undercover des bebous</p>
+      <p className="text-lg font-semibold">Undercover des bebous</p>
+      <p className="mb-4 text-sm text-gray-500">
+        Catégorie: {selectedCategory || 'Aucune'}
+      </p>
 
       <div className="mb-6">
         <p className="text-sm mb-2 bg-gray-100 p-2 rounded">
-          Undercovers restants: {remainingUndercovers}
+          {isSetupNextGame
+            ? 'Préparez-vous pour la prochaine partie !'
+            : `Undercovers restants: ${remainingUndercovers} `}
         </p>
       </div>
 
@@ -322,21 +439,27 @@ const Game: FC = () => {
               isVoting={isVoting}
               isCurrentTurn={isCurrentTurn}
               onEliminate={handleEliminate}
+              isSetupNextGame={isSetupNextGame}
+              handleNextWordDisplay={handleNextWordDisplay}
+              currentWordDisplayIndex={currentWordDisplayIndex}
+              totalPlayers={orderedPlayers.length}
             />
           );
         })}
 
-        <button
-          className={`
+        {!isSetupNextGame && (
+          <button
+            className={`
             col-span-2 md:col-span-4 py-2 bg-black text-white rounded mt-4
             ${isVoting ? 'opacity-50 cursor-not-allowed' : ''}
           `}
-          disabled={isVoting}
-          style={{ transition: 'opacity 0.3s' }}
-          onClick={() => setIsVoting(true)}
-        >
-          Passer au vote
-        </button>
+            disabled={isVoting}
+            style={{ transition: 'opacity 0.3s' }}
+            onClick={() => setIsVoting(true)}
+          >
+            Passer au vote
+          </button>
+        )}
       </div>
 
       {showModal && modalPlayer && (
@@ -349,6 +472,8 @@ const Game: FC = () => {
           }
           civilWord={civilWord}
           underCoverWord={underCoverWord}
+          replayGame={replayGame}
+          restartGame={restartGame}
         />
       )}
     </div>
