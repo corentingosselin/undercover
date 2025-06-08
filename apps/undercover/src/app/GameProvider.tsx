@@ -143,13 +143,25 @@ export function GameProvider({ children }: Props) {
   // replayGame resets words, order, eliminated, round, voting
   const replayGame = () => {
     const [civilWord, undercoverWord] = generateWords();
-    setOrder((_) => shuffleArray(players.map((p) => p.id)));
-    setPlayers((prev) =>
-      prev.map((p) => ({
+
+    // Shuffle player IDs to randomize roles
+    const shuffledIds = shuffleArray(players.map((p) => p.id));
+
+    // Pick first `undercoverCount` IDs as undercovers
+    const newUndercoverIds = new Set(shuffledIds.slice(0, undercoverCount));
+
+    // Assign new roles and words
+    const newPlayers: Player[] = players.map((p) => {
+      const isUndercover = newUndercoverIds.has(p.id);
+      return {
         ...p,
-        word: p.role === 'undercover' ? undercoverWord : civilWord,
-      }))
-    );
+        role: isUndercover ? 'undercover' : 'civil',
+        word: isUndercover ? undercoverWord : civilWord,
+      };
+    });
+
+    setPlayers(newPlayers);
+    setOrder(shuffleArray(newPlayers.map((p) => p.id)));
 
     setEliminated([]);
     setRound(1);
