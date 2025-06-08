@@ -103,6 +103,7 @@ npx vitest
 - [ ] Localstorage to save players pseudo
 - [ ] Profile picture for each player
 - [ ] translations
+- [ ] add Mr white
 
 ## 📄 License
 
