@@ -9,7 +9,7 @@ Here is a minimalist approch of the game
 
 ## 🎮 Features
 
-- 🎲 **Player Setup** with customizable names and roles
+- 🎲 **Player Setup** with customizable names
 - 🤫 Hidden words with subtle semantic differences
 - 🧠 Local state management using a GameProvider
 - 📱 Mobile-ready via Capacitor for iOS
@@ -100,6 +100,9 @@ npx vitest
 - [ ] Custom word list creation
 - [ ] Web deployment
 - [ ] Audio/visual effects during rounds
+- [ ] Localstorage to save players pseudo
+- [ ] Profile picture for each player
+- [ ] translations
 
 ## 📄 License
 
