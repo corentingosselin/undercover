@@ -1,82 +1,91 @@
-# Undercover
+# 🕵️ Undercover
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+**Undercover** is a social party game built with React, Capacitor, and Nx. Inspired by classic hidden-role games, players must blend in, deceive, and guess who among them is the Undercover agent!
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+> This project is proudly made by French developers 🇫🇷 and exclusively uses French words for gameplay to preserve the original humor and challenge.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## 🎮 Features
 
-## Finish your CI setup
+- 🎲 **Player Setup** with customizable names and roles
+- 🤫 Hidden words with subtle semantic differences
+- 🧠 Local state management using a GameProvider
+- 📱 Mobile-ready via Capacitor for iOS
+- ⚡️ Powered by Vite, Nx, and React 19
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/y8yPZCLhnN)
+## 📁 Project Structure
 
-
-## Run tasks
-
-To run the dev server for your app, use:
-
-```sh
-npx nx serve undercover
+```
+apps/
+└── undercover/
+    ├── src/
+    │   ├── app/                  # Core game components
+    │   │   ├── Game.tsx
+    │   │   ├── GameProvider.tsx
+    │   │   ├── SetupPage.tsx
+    │   │   ├── SetupPlayers.tsx
+    │   │   ├── PlayerForm.tsx
+    │   ├── assets/               # Images, icons, etc.
+    │   ├── utils/                # Utility functions
+    │   ├── main.tsx             # Entry point
+    │   └── styles.css
+    ├── public/                  # Static files
+    ├── index.html
 ```
 
-To create a production bundle:
+## 🚀 Getting Started
 
-```sh
-npx nx build undercover
+### 1. Install Dependencies
+
+```bash
+npm install
 ```
 
-To see all available targets to run for a project, run:
+### 2. Run the App
 
-```sh
-npx nx show project undercover
+```bash
+nx serve undercover
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+Or to build and run in an iOS simulator:
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/react:app demo
+```bash
+npm run start:ios
 ```
 
-To generate a new library, use:
+### 3. Build for Production
 
-```sh
-npx nx g @nx/react:lib mylib
+```bash
+nx build undercover
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## 📦 Tech Stack
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [React 19](https://react.dev)
+- [Nx](https://nx.dev)
+- [Capacitor](https://capacitorjs.com/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Vite](https://vitejs.dev/)
+- TypeScript
 
+## 🧪 Testing
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Tests are powered by [Vitest](https://vitest.dev/). To run:
 
-## Install Nx Console
+```bash
+npx vitest
+```
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+## 📌 TODO
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [ ] Multiplayer over local Wi-Fi or Bluetooth
+- [ ] Custom word list creation
+- [ ] Web deployment
+- [ ] Audio/visual effects during rounds
 
-## Useful links
+## 📄 License
 
-Learn more:
+MIT © [Your Name]
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+---
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+> Inspired by the classic "Undercover" word game — built with love for friends and fun nights in.
