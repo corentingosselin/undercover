@@ -76,7 +76,7 @@ const PlayerCard = ({
     );
   };
 
-  const isLastPlayer =  isSetupNextGame && order === totalPlayers;
+  const isLastPlayer = isSetupNextGame && order === totalPlayers;
 
   return (
     <>
@@ -109,7 +109,11 @@ const PlayerCard = ({
         <div className="flex flex-col items-start">
           {/* only this wrapper fades */}
           <div className={`transition ${isKilled ? 'opacity-50' : ''}`}>
-            <p className={`font-semibold ${isKilled ? 'line-through' : ''}`}>
+            <p
+              className={`text-xl font-semibold ${
+                isKilled ? 'line-through' : ''
+              } `}
+            >
               {displayName}
             </p>
 
@@ -143,6 +147,8 @@ const PlayerCard = ({
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
+            <p className="text-lg mb-4">Votre mot est</p>
+
             <p className="text-2xl font-bold mb-6">{player.word}</p>
             <button
               onClick={() => {
@@ -151,7 +157,7 @@ const PlayerCard = ({
                   handleNextWordDisplay();
                 }
               }}
-              className="bg-black text-white px-4 py-2 rounded"
+              className="bg-black text-white px-4 py-4 rounded-lg font-semibold w-full text-xl"
             >
               {isLastPlayer ? 'Commencer la partie' : 'Joueur suivant'}
             </button>
@@ -168,7 +174,7 @@ const WordBadge: FC<{ word: string; isUndercover: boolean }> = ({
 }) => (
   <span
     className={`
-      px-2 py-1 rounded text-center text-xs
+      px-4 py-2 rounded text-center text-lg
       ${
         isUndercover ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'
       }
@@ -208,7 +214,7 @@ const RoleRevealModal = ({
   const victoryMessage = isCivilWin
     ? 'Les bebous remportent la victoire !'
     : 'Les bebous dissimulés remportent la victoire !';
-  const actionLabel = hasVictory ? 'Rejouer' : 'Fermer';
+  const actionLabel = hasVictory ? 'Rejouer' : 'OK';
 
   // List out the words in the correct order
   const wordBadges = [
@@ -237,13 +243,13 @@ const RoleRevealModal = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Single-player reveal */}
-        <h2 className="font-semibold mb-4">
+        <h2 className="font-semibold mb-4 text-lg">
           {isUndercover ? WON_TITLE : LOST_TITLE}
         </h2>
         <div className="mb-4 flex items-center justify-center w-full">
           <span
             className={`
-                  px-2 py-1 rounded text-lg w-full text-center
+                  px-2 py-4 rounded text-xl w-full text-center
                   ${
                     isUndercover
                       ? 'bg-red-100 text-red-800'
@@ -259,14 +265,14 @@ const RoleRevealModal = ({
         {hasVictory && (
           <>
             <p className="text-sm text-gray-600 mb-4">{victoryMessage}</p>
-            <div className="flex gap-1 mb-4">{wordBadges}</div>
+            <div className="flex gap-1 mb-8">{wordBadges}</div>
           </>
         )}
 
-        <div className="flex gap-4 mt-2">
+        <div className="flex gap-4 mt-2 w-full">
           {hasVictory && (
             <button
-              className="px-4 py-2 bg-black text-gray-200 rounded hover:opacity-90"
+              className="px-4 py-2 bg-black text-gray-200 rounded hover:opacity-90 text-xl w-full"
               onClick={restartGame}
             >
               Quitter
@@ -274,7 +280,7 @@ const RoleRevealModal = ({
           )}
 
           <button
-            className="px-4 py-2 bg-amber-400 text-black rounded hover:opacity-90"
+            className="px-4 py-4 w-full bg-amber-400 text-black rounded-lg hover:opacity-90 font-semibold text-xl"
             onClick={handleClick}
           >
             {actionLabel}
@@ -295,7 +301,7 @@ const Game: FC = () => {
     replayGame,
     reset,
     setIsSetupNextGame,
-    selectedCategory
+    selectedCategory,
   } = context;
   const [civilWord, underCoverWord] = wordOptions;
   const navigate = useNavigate();
@@ -403,13 +409,20 @@ const Game: FC = () => {
 
   return (
     <div className="p-6">
-      <p className="text-lg font-semibold">Undercover des bebous</p>
-      <p className="mb-4 text-sm text-gray-500">
+      <div className="text-center mb-6">
+        <img
+          src="/images/logo.png"
+          alt="Undercover des bebous"
+          className="w-9 mx-auto"
+        />
+        <h2 className="text-2xl font-bold">Undercover des bebous</h2>
+      </div>
+      <p className="mb-4 text-lg text-gray-500">
         Catégorie: {selectedCategory || 'Aucune'}
       </p>
 
       <div className="mb-6">
-        <p className="text-sm mb-2 bg-gray-100 p-2 rounded">
+        <p className="text-lg mb-2 bg-gray-100 p-2 rounded">
           {isSetupNextGame
             ? 'Préparez-vous pour la prochaine partie !'
             : `Undercovers restants: ${remainingUndercovers} `}
@@ -418,13 +431,13 @@ const Game: FC = () => {
 
       {isVoting && (
         <div className="mb-4">
-          <p className="text-sm mb-2 bg-black text-white px-2 py-1 rounded">
+          <p className="text-lg mb-2 bg-black text-white px-2 py-1 rounded">
             Cliquez sur un joueur pour l'éliminer.
           </p>
         </div>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {orderedPlayers.map((player, idx) => {
           const id = player.id;
           const isKilled = eliminated.includes(id);
@@ -450,7 +463,7 @@ const Game: FC = () => {
         {!isSetupNextGame && (
           <button
             className={`
-            col-span-2 md:col-span-4 py-2 bg-black text-white rounded mt-4
+            col-span-2 md:col-span-4 py-4 bg-black text-white rounded-lg mt-4 text-xl
             ${isVoting ? 'opacity-50 cursor-not-allowed' : ''}
           `}
             disabled={isVoting}

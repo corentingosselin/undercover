@@ -2,14 +2,20 @@
   "name": "@undercover/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start:ios": "nx build undercover && npx cap sync ios && npx cap open ios"
+  },
   "private": true,
   "dependencies": {
+    "@capacitor/core": "^7.3.0",
+    "@capacitor/ios": "^7.3.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router-dom": "6.29.0"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^7.3.0",
     "@eslint/js": "^9.8.0",
     "@nx/eslint": "21.1.2",
     "@nx/eslint-plugin": "21.1.2",
